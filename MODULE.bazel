@@ -1,0 +1,17 @@
+module(
+    name = "sylvan",
+    version = "0.1.0",
+)
+
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "rules_cc", version = "0.0.17")
+bazel_dep(name = "googletest", version = "1.14.0.bcr.1")
+bazel_dep(name = "rules_cuda", version = "0.2.4")
+
+cuda = use_extension("@rules_cuda//cuda:extensions.bzl", "toolchain")
+cuda.local_toolchain(
+    name = "local_cuda",
+    toolkit_path = "", # Auto detected from $CUDA_PATH
+)
+
+use_repo(cuda, "local_cuda")

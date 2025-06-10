@@ -1,0 +1,18 @@
+common --enable_bzlmod
+
+build --cxxopt='-std=c++17'
+build --color=yes
+build --show_progress_rate_limit=5
+
+build --flag_alias=cuda_archs=@rules_cuda//cuda:archs
+
+# Define a configuration named 'cuda'
+# When using 'bazel build --config=cuda', these options will be activated
+build:cuda --@rules_cuda//cuda:enable
+
+# Modify the compute capability value here according to your GPU model
+# For example: RTX 30xx/40xx -> sm_86, sm_89 | A100 -> sm_80 | V100 -> sm_70
+build:cuda --cuda_archs=sm_86
+
+# Enable cuda configuration during testing
+test --config=cuda
