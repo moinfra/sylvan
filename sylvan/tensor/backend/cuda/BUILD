@@ -13,6 +13,7 @@ cuda_library(
     ],
     includes = ["include"],
     visibility = ["//visibility:public"],
+    copts = ["-Isylvan/tensor/include"],
     deps = [
         "//sylvan/tensor",
         "@local_cuda//:cublas",
