@@ -1,2 +1,4 @@
 # bazel
 bazel-*
+project_bundle.md
+*.tmp.md
