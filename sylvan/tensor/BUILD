@@ -6,5 +6,6 @@ cc_library(
     name = "tensor",
     hdrs = glob(["include/sylvan/tensor/**/*.h"]),
     strip_include_prefix = "include",
+    includes = ["include"],
     visibility = ["//visibility:public"],
 )

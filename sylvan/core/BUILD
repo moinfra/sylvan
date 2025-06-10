@@ -5,6 +5,7 @@ cc_library(
     srcs = glob(["src/**/*.cc"]),
     hdrs = glob(["include/sylvan/core/**/*.h"]),
     strip_include_prefix = "include",
+    includes = ["include"],
     visibility = ["//visibility:public"],
     deps = [
         "//sylvan/tensor",
