@@ -1,5 +1,8 @@
 {
     "files.associations": {
+        "*.cu": "cuda-cpp",
+        "*.cuh": "cuda-cpp",
+        "*.cu.cc": "cuda-cpp",
         "BUILD": "python",
         "iostream": "cpp",
         "any": "cpp",
@@ -79,6 +82,13 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp",
-        "variant": "cpp"
-    }
+        "variant": "cpp",
+        "shared_mutex": "cpp",
+        "*.inc": "cpp"
+    },
+    "clangd.arguments": [
+        "--header-insertion=never",
+        "--compile-commands-dir=${workspaceFolder}/",
+        "--query-driver=**"
+    ]
 }

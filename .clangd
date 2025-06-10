@@ -1,0 +1,4 @@
+If:
+  PathMatch: .*\.cu\.cc
+CompileFlags:
+  Add: [-xcuda, -std=c++17]

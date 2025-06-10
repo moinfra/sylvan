@@ -6,5 +6,8 @@ cc_library(
     hdrs = glob(["include/sylvan/core/**/*.h"]),
     strip_include_prefix = "include",
     visibility = ["//visibility:public"],
-    deps = [ "//sylvan/tensor" ],
+    deps = [
+        "//sylvan/tensor",
+        "//sylvan/tensor/backend/cuda:cuda_backend_impl",
+    ],
 )

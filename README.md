@@ -79,6 +79,10 @@ This project uses Bazel. Ensure you have a recent version of Bazel and the NVIDI
 - `tests/`: Unit tests for all libraries (using GTest).
 - `examples/`: Standalone examples showing how to use the framework.
 
+Run `CC=clang bazel run @hedron_compile_commands//:refresh_all` to generate a compilation database for your editor.
+
+Install `Nsight Visual Studio Code Edition` for better debugging experience.
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
