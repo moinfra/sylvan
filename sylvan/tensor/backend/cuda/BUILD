@@ -10,6 +10,7 @@ cuda_library(
     hdrs = [
         "include/kernels.h",
         "include/macros.h",
+        "include/operators-inl.h",
     ],
     includes = ["include"],
     visibility = ["//visibility:public"],

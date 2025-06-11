@@ -10,9 +10,10 @@
   do {                                                                         \
     cudaError_t err = call;                                                    \
     if (err != cudaSuccess) {                                                  \
-      fprintf(stderr, "CUDA Error at %s:%d - %s\n", __FILE__, __LINE__,        \
-              cudaGetErrorString(err));                                        \
-      exit(EXIT_FAILURE);                                                      \
+      fprintf(stderr, "\nCUDA Error at %s:%d\n", __FILE__, __LINE__);          \
+      fprintf(stderr, "Code: %d, Name: %s, Description: %s\n", err,            \
+              cudaGetErrorName(err), cudaGetErrorString(err));                 \
+      throw std::runtime_error("CUDA error");                                  \
     }                                                                          \
   } while (0)
 
@@ -20,9 +21,9 @@
   do {                                                                         \
     cublasStatus_t status = call;                                              \
     if (status != CUBLAS_STATUS_SUCCESS) {                                     \
-      fprintf(stderr, "cuBLAS Error at %s:%d - Status %d\n", __FILE__,         \
+      fprintf(stderr, "\ncuBLAS Error at %s:%d - Status %d\n", __FILE__,       \
               __LINE__, status);                                               \
-      exit(EXIT_FAILURE);                                                      \
+      throw std::runtime_error("cuBLAS error");                                \
     }                                                                          \
   } while (0)
 
@@ -32,6 +33,6 @@
     if (status != CURAND_STATUS_SUCCESS) {                                     \
       fprintf(stderr, "cuRAND Error at %s:%d - Status %d\n", __FILE__,         \
               __LINE__, status);                                               \
-      exit(EXIT_FAILURE);                                                      \
+      throw std::runtime_error("cuRAND error");                                \
     }                                                                          \
   } while (0)
