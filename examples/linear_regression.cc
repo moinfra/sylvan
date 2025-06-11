@@ -1,6 +1,18 @@
+// sylvan/examples/linear_regression.cc
+//
+// Demonstrates a simple linear regression model using the Sylvan framework.
+// This example showcases the core components: Tensor operations,
+// Autograd graph construction, Layers (Linear), and Optimizers (SGD).
+// It trains a model to fit a linear relationship y = 2x + 0.5.
+//
+// Author: Zijing Zhang
+// Date: 2025-06-11
+// Copyright: (c) 2025 Sylvan Framework. All rights reserved.
+// SPDX-License-Identifier: MIT
+
 #include "sylvan/core/autograd.h"
 #include "sylvan/core/graph.h"
-#include "sylvan/core/layer.h"
+#include "sylvan/core/layers/linear.h"
 #include "sylvan/core/optimizer.h"
 #include "sylvan/tensor/operators.h"
 #include <iostream>
@@ -22,27 +34,21 @@ int main() {
     y_data[i] = 2.0f * x_data[i] + 0.5f;
   }
 
-  // Base tensors that hold the dataset, owned by main.
   auto x_tensor_base =
       tensor::ops::from_host(x_data, {num_samples, in_features});
   auto y_tensor_base =
       tensor::ops::from_host(y_data, {num_samples, out_features});
 
-  // Model and optimizer are created once and own the persistent parameters.
   core::Linear model(in_features, out_features);
   core::SGD optimizer(model.parameters(), 0.001f);
 
   int epochs = 200;
   for (int epoch = 0; epoch < epochs; ++epoch) {
-    // A new graph context is created for each training iteration.
-    // Its Arena will be automatically freed when 'graph' goes out of scope.
     core::GraphContext graph;
 
-    // Create leaf variables for this iteration's graph from base data.
     auto *X = graph.create_variable(x_tensor_base.clone());
     auto *Y_true = graph.create_variable(y_tensor_base.clone());
 
-    // Standard training steps
     optimizer.zero_grad();
 
     auto *Y_pred = model.forward(graph, X);
@@ -52,7 +58,7 @@ int main() {
     optimizer.step();
 
     if (epoch % 20 == 0) {
-      auto loss_val = tensor::ops::clone_to_host(loss->data);
+      auto loss_val = tensor::ops::clone_to_host<float>(loss->data);
       std::cout << "Epoch " << epoch << ", Loss: " << loss_val[0] << std::endl;
     }
   }
