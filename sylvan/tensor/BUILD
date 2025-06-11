@@ -8,4 +8,5 @@ cc_library(
     strip_include_prefix = "include",
     includes = ["include"],
     visibility = ["//visibility:public"],
+    deps = [ "//sylvan/common" ],
 )
